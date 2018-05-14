@@ -1,0 +1,1 @@
+# laravel_event_attendize
