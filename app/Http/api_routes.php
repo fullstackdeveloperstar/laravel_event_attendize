@@ -84,4 +84,14 @@ Route::group(['prefix' => 'api', 'middleware' => 'jwt.auth'], function () {
         'as'   => 'users',
         'uses' => 'API\UserLoginAPIController@show',
     ]);
+
+    Route::get('users/{id}', [
+        'as'   => 'users',
+        'uses' => 'API\UserLoginAPIController@show',
+    ]);
+
+    Route::get('myinfo', [
+        'as'   => 'myinfo',
+        'uses' => 'API\UserLoginAPIController@getLoggedinUser',
+    ]);
 });

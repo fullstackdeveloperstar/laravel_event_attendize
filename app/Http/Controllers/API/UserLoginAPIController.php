@@ -37,10 +37,9 @@ class UserLoginAPIController extends Controller
     }
 
     public function signup(Request $request){
-        $credentials = $request->only('name', 'email', 'password', 'first_name', 'last_name','password_confirmation');
+        $credentials = $request->only( 'email', 'password', 'first_name', 'last_name','password_confirmation');
         
         $rules = [
-            'name'          => 'required|max:255',
             'email'         => 'required|email|max:255|unique:users',
             'password'      => 'required|min:5|confirmed',
             'first_name'    => 'required',
@@ -96,6 +95,20 @@ class UserLoginAPIController extends Controller
 
     public function show($id) {
         return User::find($id);
+    }
+
+    public function getLoggedinUser(){
+       try{
+        $user = JWTAuth::parseToken()->toUser();
+        if(!$user) {
+            return response()->json(["error" => "something went wrong"]);
+        }
+       } catch(JWTException $ex){
+            return response()->json(['error' => 'something went wrong']);
+       }
+
+       return response()->json(compact('user'))->setStatusCode(200);
+        // return response()->json(['success' => "signup success!"], 200);
     }
 
 }
