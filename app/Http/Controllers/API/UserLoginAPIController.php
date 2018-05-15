@@ -70,7 +70,7 @@ class UserLoginAPIController extends Controller
                     ->subject('Thank you for registering for Attendize');
             });
 
-        return response()->json(['success' => "signup success!"], 200);
+        return response()->json(['success' => true], 200);
     }
 
     public function getToken(){

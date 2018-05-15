@@ -46,6 +46,7 @@
 @section('content')
 
     @if($events->count())
+
         <div class="row">
             <div class="col-md-3 col-xs-6">
                 <div class="order_options">
@@ -70,6 +71,8 @@
     <div class="row">
         @if($events->count())
             @foreach($events as $event)
+                <?php 
+                // var_dump($event);?>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     @include('ManageOrganiser.Partials.EventPanel')
                 </div>
