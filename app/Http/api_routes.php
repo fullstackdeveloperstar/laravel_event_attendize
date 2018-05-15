@@ -16,6 +16,11 @@ Route::group(['prefix' => 'api'], function() {
         'as'   => 'token',
         'uses' => 'API\UserLoginAPIController@getToken',
     ]);
+
+    Route::post('forgot-password', [
+        'as'    => 'forgot-password',
+        'uses'  => 'RemindersController@postAPIRemind',
+    ]);
 });
 
 Route::group(['prefix' => 'api', 'middleware' => 'jwt.auth'], function () {

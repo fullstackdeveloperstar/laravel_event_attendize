@@ -125,4 +125,21 @@ class RemindersController extends Controller
                     ->withErrors(['email' => trans($response)]);
         }
     }
+
+    public function postAPIRemind(Request $request){
+        $this->validate($request, ['email' => 'required']);
+
+        $response = $this->passwords->sendResetLink($request->only('email'), function ($m) {
+            $m->subject($this->getEmailSubject());
+        });
+
+        
+        switch ($response) {
+            case PasswordBroker::RESET_LINK_SENT:
+                return response()->json(['status' => true,'msg' => trans($response)]);
+
+            case PasswordBroker::INVALID_USER:
+                return response()->json(['status' => false, 'msg' => trans($response)]);
+        }
+    }
 }
